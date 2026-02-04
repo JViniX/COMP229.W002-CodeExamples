@@ -1,11 +1,15 @@
-const connect = require('connect');
-const app = connect();
+const createError = require('http-errors');
+const express = require('express');
+const logger = require('morgan');
+const cors = require('cors');
 
-function logger(req, res, next){
-    console.log(req.method, req.url);
+const app = express();
 
-    next();
-}
+app.use(cors());
+
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 function helloWorld(req, res, next){
     res.setHeader('Content-Type', 'text/plain');
@@ -22,10 +26,21 @@ function notfound(req, res, next){
     res.end('Page Not Found');
 }
 
-app.use(logger);
-app.use('/hello', helloWorld);
-app.use('/bye', goodbye);
+const temp = {
+    name: 'John Smith',
+    email: 'john@smith.ca'
+}
+
+app.get('/user/getuser', (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    
+    res.json(temp);
+})
+
+app.get('/hello', helloWorld);
+app.get('/bye', goodbye);
 app.use(notfound);
 
-app.listen(3000)
-console.log('Server running at http://localhost:3000/');
+app.listen(3000, ()=>{
+    console.log('Server running at http://localhost:3000/');
+})
