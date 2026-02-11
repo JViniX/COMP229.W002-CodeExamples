@@ -11,6 +11,8 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+
+
 function helloWorld(req, res, next){
     res.setHeader('Content-Type', 'text/plain');
     res.end('Hello World!');
@@ -25,6 +27,13 @@ function notfound(req, res, next){
     res.setHeader('Content-Type', 'text/plain');
     res.end('Page Not Found');
 }
+
+app.get('/api/projects/:id', (req, res) => {
+    console.log(req.params.id);
+    res.send('Product ID: ' + req.params.id);
+    // res.redirect('/hello')
+})
+
 
 const temp = {
     name: 'John Smith',
