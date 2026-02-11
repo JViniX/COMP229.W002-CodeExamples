@@ -15,17 +15,17 @@ app.use(express.urlencoded({ extended: false }));
 
 function helloWorld(req, res, next){
     res.setHeader('Content-Type', 'text/plain');
-    res.end('Hello World!');
+    res.send('Hello World!');
 }
 
 function goodbye(req, res, next){
     res.setHeader('Content-Type', 'text/plain');
-    res.end('Goodbye!');
+    res.send('Goodbye!');
 }
 
 function notfound(req, res, next){
     res.setHeader('Content-Type', 'text/plain');
-    res.end('Page Not Found');
+    res.send('Page Not Found');
 }
 
 app.get('/api/projects/:id', (req, res) => {
